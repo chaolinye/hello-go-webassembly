@@ -1,0 +1,22 @@
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <script src="wasm_exec.js"></script>
+    <script>
+        const go = new Go();
+        function jsFun() {
+            alert("wasm call js function")
+        }
+        WebAssembly.instantiateStreaming(fetch("hello.wasm"), go.importObject).then((result) => {
+            go.run(result.instance);
+        });
+        function callWasm() {
+            alert(goHello("abc", 123, "dddd"))
+        }
+    </script>
+</head>
+<body>
+<div id="content"></div>
+<button onclick="callWasm()">click</button>
+</body>
+</html>
